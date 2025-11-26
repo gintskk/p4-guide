@@ -241,14 +241,14 @@ then
 elif [ "${ID}" = "fedora" ]
 then
     # I have not tested this script with fedora yet.
-    case "${VERSION_ID}" in
-	38)
-	    supported_distribution=0
-	    ;;
-	39)
-	    supported_distribution=0
-	    ;;
-    esac
+    GRPC_SOURCE_VERSION="1.48.4"
+    supported_distribution=1
+    INSTALL_GRPC_PROTOBUF_FROM_PREBUILT_PKGS=0
+    # Versions installed by Ubuntu apt
+    PROTOBUF_PKG_VERSION="3.19.6"
+    GRPC_PKG_VERSION="1.48.4"
+    # Closest versions available via "pip3 install" to the above
+    PROTOBUF_VERSION_FOR_PIP="3.19.6"
 fi
 
 if [ ${INSTALL_GRPC_PROTOBUF_FROM_PREBUILT_PKGS} -eq 1 ]
@@ -272,7 +272,7 @@ else
 	1>&2 echo "experience in fixing such matters, your help is"
 	1>&2 echo "appreciated."
     fi
-    exit 1
+    #exit 1
 fi
 
 # Minimum required system memory is 2 GBytes, minus a few MBytes
@@ -506,7 +506,7 @@ elif [ "${ID}" = "fedora" ]
 then
     sudo dnf -y install \
 	 autoconf automake libtool curl make g++ unzip \
-	 pkg-config python3-pip
+	 pkg-config python3-pip openssl-devel-engine
 fi
 
 if [ \( "${ID}" = "ubuntu" -a "${VERSION_ID}" = "20.04" \) -o \( "${ID}" = "fedora" -a "${VERSION_ID}" = "35" \) ]
@@ -640,7 +640,7 @@ else
 	# identical to installing the build-essential package on Ubuntu,
 	# but there is at least significant overlap between what they
 	# install.
-	sudo dnf group install -y 'Development Tools'
+	sudo dnf -y install @development-tools
 	# python3-devel is needed on Fedora systems for the `pip3 install
 	# .` step below
 	sudo dnf -y install autoconf libtool pkg-config python3-devel
