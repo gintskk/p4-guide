@@ -240,15 +240,13 @@ then
     esac
 elif [ "${ID}" = "fedora" ]
 then
-    # I have not tested this script with fedora yet.
-    GRPC_SOURCE_VERSION="1.48.4"
     supported_distribution=1
-    INSTALL_GRPC_PROTOBUF_FROM_PREBUILT_PKGS=0
+    INSTALL_GRPC_PROTOBUF_FROM_PREBUILT_PKGS=1
     # Versions installed by Ubuntu apt
-    PROTOBUF_PKG_VERSION="3.19.6"
-    GRPC_PKG_VERSION="1.48.4"
+    PROTOBUF_PKG_VERSION="3.21.12"
+    GRPC_PKG_VERSION="1.51.1"
     # Closest versions available via "pip3 install" to the above
-    PROTOBUF_VERSION_FOR_PIP="3.19.6"
+    PROTOBUF_VERSION_FOR_PIP="4.21.12"
 fi
 
 if [ ${INSTALL_GRPC_PROTOBUF_FROM_PREBUILT_PKGS} -eq 1 ]
