@@ -603,7 +603,13 @@ then
     TIME_GRPC_CLONE_START=$(date +%s)
     TIME_GRPC_CLONE_END=$(date +%s)
     TIME_GRPC_INSTALL_START=$(date +%s)
-    sudo apt-get --yes install libprotobuf-dev protobuf-compiler protobuf-compiler-grpc libgrpc-dev libgrpc++-dev
+    if [ "${ID}" = "ubuntu" ]
+    then
+	sudo apt-get --yes install libprotobuf-dev protobuf-compiler protobuf-compiler-grpc libgrpc-dev libgrpc++-dev
+    elif [ "${ID}" = "fedora" ]
+    then
+	sudo dnf install -y protobuf-devel protobuf-compiler grpc-devel grpc-cpp grpc-plugins
+    fi
     if [ "${PROTOBUF_VERSION_FOR_PIP}" != "" ]
     then
 	pip3 install protobuf==${PROTOBUF_VERSION_FOR_PIP}
